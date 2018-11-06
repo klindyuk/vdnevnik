@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ВДневник! Сетевой город с человеческим лицом онлайн</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="controls">
+           <h2>ВДневник!</h2>
+           <p>Приложение для классных руководителей, которые распечатывают оценки из &quot;Сетевого города&quot; и клеят их в дневники. Для работы понадобится Отчет об успеваемости и посещаемости ученика.</p>
+            <h2>Всего три кнопки:</h2>
+           <label for="xlfile" id="step1">1. Выбрать файл</label>
+           <input type="file" name="xlfile" id="xlf" accept=".xls" dropzone>
+           <label for="processButton" id="step2">2. Причесать</label>
+           <input type="button" name="processButton" id="processButton" value="Запустите обработку" disabled>
+           <div id="printSettings">
+               <h3>Размер текста</h3>
+            <label for="h2size">Заголовок 1: </label>   
+            <input type="number" name="h2size" id="h2size" value="12" max="20" min="6">
+            <label for="h4size">Заголовок 2: </label>   
+            <input type="number" name="h4size" id="h4size" value="9" max="20" min="6">
+            <label for="thsize">Заголовки таблицы: </label>   
+            <input type="number" name="thsize" id="thsize" value="10" max="20" min="6">
+            <label for="tdsize">Строки таблицы: </label>   
+            <input type="number" name="tdsize" id="tdsize" value="10" max="20" min="6">
+            <label for="psize">Обычный текст: </label>   
+            <input type="number" name="psize" id="psize" value="8" max="20" min="5">
+           </div>
+           <label for="printButton" id="step3">3. Распечатать</label>
+           <input type="button" name="printButton" id="printButton" value="Распечатайте" disabled>
+
+           <label for="reloadButton" id="step4">...или начать заново</label>
+           <input type="button" name="reloadButton" id="reloadButton" value="Выберите другой отчет" disabled>
+           <div class="credits">
+                <a href="#" id="about">Кому сказать спасибо</a>
+                <a href="#" id="personal">Заявление о конфиденциальности</a>
+               <a href="../">Вернуться на сайт</a>
+           </div>
+        </div>
+        <div id="processedReport"></div>
+    </div>
+
+    <div id="about-message" title="О приложении" class="modal">
+        <p>Разработчик: Александр Клиндюк.</p>
+        <p>Материально поблагодарить автора можно переведя любую сумму на карту visa 4276 6300 1015 7215. Словесно - написав на <a href="mailto:a.klindyuk@pushkin1936.ru">a.klindyuk@pushkin1936.ru</a></p>
+    </div>
+    <div id="personal-message" title="Конфиденциальность данных" class="modal">
+        <p>Персональные данные в безопасности.</p>
+        <p>Вся обработка происходит непосредственно в браузере, никакие персональные данные не передаются по сети. В целях сбора статистики и улучшения приложения на сервер могут передаваться название школы и класса.</p>
+    </div>
+    
+    <script src="js/v2.0/handleReport.js"></script>
+    <script src="js/v2.0/viewReport.js"></script>
+</body>
+</html>

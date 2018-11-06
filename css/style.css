@@ -1,0 +1,174 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2{
+    text-align: center;
+}
+h4 {
+    font-size: 14px;
+}
+.wrapper {
+    width: 100%;
+    margin: 0 auto;
+/*    display: flex; */
+}
+#controls {
+    width: 300px;
+    height: 100vh;
+    margin: 0 20px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    float: left;
+}
+
+#controls h2 {
+	text-align: center;
+	color:crimson;
+}
+#controls > input {
+    outline: none;
+    max-width: 250px;
+    overflow: hidden;
+}
+#controls > label {
+	display: block;
+	margin: 10px auto;
+	width: 90%;
+	padding: 10px;
+	border: 1px solid #333;
+	border-radius: 20px;
+	text-align: center;
+	background-color: bisque;
+	font-size: 18px;
+	font-weight: bold;
+}
+#controls > label.done {
+    background-color: aquamarine;
+    transition: 2s;
+}
+
+#printSettings {
+    display: none;
+    border: 2px solid bisque;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+}
+#printSettings > label {
+    display: inline-block;
+    width: 150px;
+}
+#printSettings > input {
+    width: 60px;
+}
+
+#step4 {
+    margin-top: 40px;
+}
+
+#processedReport {
+    padding: 0 20px;
+
+/*    width: 100%; */
+    height: 100vh;
+    overflow-y: scroll;
+}
+#processedReport .report-title-school {
+    text-align: center;
+    font-size: 12px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;    
+}
+
+td,
+th {
+	border: 1px solid black;
+}
+
+.credits {
+    border-top: 2px solid bisque;
+    padding: 20px 10px;
+    margin-top: 40px;
+    background-color: beige;
+}
+
+.credits a {
+    color: crimson;
+    display: block;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px;
+}
+.modal {
+    display: none;
+}
+@media screen {
+    table {
+        max-width: 800px;
+    }
+}
+@media print {
+	body {
+		font-family: sans-serif;
+		color: black;
+	}
+	
+    #controls {
+        display: none;
+    }
+    #processedReport {
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        height: unset;
+        overflow-y: unset;
+/*        display: grid;
+        grid-template-columns: 1fr 1fr; */
+    }
+/*    #processedReport:nth-child(4n) {
+        page-break-after: always;
+    } */
+    div.studentDiv {
+		border: 1pt solid black;
+        width: 100%;
+		padding: 2mm;
+        margin: 1mm 0;
+		page-break-inside: avoid !important;
+    }
+	h1,
+	h2{
+		text-align: center;
+    }
+    h1,
+    h2,
+    h3 {
+        font-size: 12pt;
+    }
+    h4 {
+        font-size: 9pt;
+    }
+    td,
+    th {
+        font-size: 10pt;
+    }
+    p {
+        font-size: 8pt;
+    }
+
+	
+	td,
+	th {
+		border: 0.5pt solid black;
+	}
+}
