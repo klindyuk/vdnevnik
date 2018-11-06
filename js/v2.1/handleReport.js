@@ -49,16 +49,26 @@ function processReport() {
     reportYear = reportGlobals[0].innerText.split('/')[1];
     reportGrade = reportGlobals[1].innerText;
     reportPeriod = reportGlobals[2].innerText;
-    //console.log(reportYear, reportGrade, reportPeriod);
-    for (var i = 0; i < resultTables.length / 3; i++) {
-        createStudent(resultTables[i * 3], resultTables[i * 3 + 1], resultTables[i * 3 + 2]);
-    }
-    //console.log(students);
-    document.getElementById('step2').classList.add('done');
-    //document.getElementById('printSettings').style.display = 'block';
-    $('#printSettings').show("slide");
-    printButton.disabled = false;
-    viewReport();    
+    // Регистрируем школу и класс на сервере, в случае успеха запускаем обработку
+    $.ajax({
+        url: 'visit_handler.php',
+        data: {
+            action: 'checkin',
+            schoolTitle: schoolTitle,
+            reportGrade: reportGrade
+        },
+        success: function(result) {
+            alert(result);
+            for (var i = 0; i < resultTables.length / 3; i++) {
+                createStudent(resultTables[i * 3], resultTables[i * 3 + 1], resultTables[i * 3 + 2]);
+            }
+            document.getElementById('step2').classList.add('done');
+            $('#printSettings').show("slide");
+            printButton.disabled = false;
+            viewReport();
+        }
+    });
+  
 }
 
 function getMonthNumberByName(name) {
