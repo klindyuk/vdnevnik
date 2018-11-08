@@ -3,7 +3,7 @@
         if ($_REQUEST['action'] == 'checkin') {
             include 'connection.php';
             $sql = "SELECT * FROM users WHERE school_title='".$_REQUEST['schoolTitle']."' AND report_grade='".$_REQUEST['reportGrade']."'";
-            $res = mysqli_query($connect,$sql);
+            $res = mysqli_query($connect,$sql) or die('Error');
             if (mysqli_num_rows($res) > 0) {
                 $data = mysqli_fetch_assoc($res);
                 $id = $data['user_id'];
