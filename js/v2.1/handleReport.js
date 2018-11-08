@@ -58,11 +58,12 @@ function processReport() {
             reportGrade: reportGrade
         },
         success: function(result) {
-            alert(result);
             for (var i = 0; i < resultTables.length / 3; i++) {
                 createStudent(resultTables[i * 3], resultTables[i * 3 + 1], resultTables[i * 3 + 2]);
             }
             document.getElementById('step2').classList.add('done');
+            $('#visits').html(result);
+            $('#visits').show("slide");
             $('#printSettings').show("slide");
             printButton.disabled = false;
             viewReport();
