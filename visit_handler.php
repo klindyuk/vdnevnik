@@ -10,7 +10,7 @@
                 $visits = $data['visits'] + 1;
                 $sql = "UPDATE users SET visits=".$visits." WHERE user_id=".$id;
                 mysqli_query($connect,$sql);
-                echo "С возвращением! Это ваш".$visits."-й визит";
+                echo "С возвращением! Это ваш $visits-й визит";
             } else {
                 $sql = "INSERT INTO users(school_title, report_grade, visits) VALUES ('".$_REQUEST['schoolTitle']."','".$_REQUEST['reportGrade']."', 1)";
                 $res = mysqli_query($connect,$sql);
