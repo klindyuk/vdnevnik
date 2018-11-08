@@ -64,6 +64,7 @@ function processReport() {
             document.getElementById('step2').classList.add('done');
             $('#visits').html(result);
             $('#visits').show("slide");
+            setTimeout(function() {$('#visits').hide("slide");}, 4000);
             $('#printSettings').show("slide");
             printButton.disabled = false;
             viewReport();
