@@ -124,17 +124,23 @@ function createStudent(t1, t2, t3) {
         }
         
         trs[i].querySelector('td.cell-num').remove();
+        trs[i].querySelector('td.cell-text').remove();
+        console.log(trs[i]);
+        console.log(dates);
+
+
+        // var grades = trs[i].innerText.match(/\d/g);
+        // if (grades) {
+        //     grades = grades.map(Number);
+        //     subject.grades = grades;
+        //     var sumOfGrades = 0;
+        //     grades.forEach(element => {
+        //         sumOfGrades += element;
+        //     });
+        //     subject.averageGrade = sumOfGrades / grades.length;
+        // }
+
         
-        var grades = trs[i].innerText.match(/\d/g);
-        if (grades) {
-            grades = grades.map(Number);
-            subject.grades = grades;
-            var sumOfGrades = 0;
-            grades.forEach(element => {
-                sumOfGrades += element;
-            });
-            subject.averageGrade = sumOfGrades / grades.length;
-        }
 
         student.subjects.push(subject);
     }

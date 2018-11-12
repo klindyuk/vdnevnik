@@ -1,4 +1,4 @@
-const PROG_VERSION = 'ВДневник! Сетевой город с человеческим лицом. Версия 2.1';
+const PROG_VERSION = 'ВДневник! Сетевой город с человеческим лицом. Версия 2.2';
 const PROG_URL = 'http://rzhevinfo.ru/vdnevnik';
 var printButton = document.getElementById('printButton');
 printButton.addEventListener('click', printReport, false);
