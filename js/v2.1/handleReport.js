@@ -154,3 +154,7 @@ $('#personal').on('click', function() {
     $('#personal-message').dialog();
     return false;
 });
+
+$(document).ready(function() {
+    $('#about').text(PROG_VERSION);
+});
