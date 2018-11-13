@@ -75,7 +75,7 @@ function processReport() {
 
 function getMonthNumberByName(name) {
     var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-    return months.indexOf(name) + 1;
+    return months.indexOf(name);
 }
 
 function createStudent(t1, t2, t3) {
@@ -93,7 +93,7 @@ function createStudent(t1, t2, t3) {
     
     for (var i = 1; i < ths.length - 1; i++) {
         var e = {
-            month: ths[i].innerText,
+            month: ths[i].innerText.trim(),
             days: ths[i].getAttribute('colspan')
         }
         daysForMonth.push(e);
@@ -104,7 +104,7 @@ function createStudent(t1, t2, t3) {
         monthNumber = getMonthNumberByName(element.month);
         var currentYear = monthNumber > 8 ? reportYear - 1 : reportYear;
         for (var j = 0; j < element.days; j++) {
-            dates.push(new Date(currentYear, monthNumber - 1, ths[i].innerText));
+            dates.push(new Date(currentYear, monthNumber, ths[i].innerText));
             i++;
         }
     });
@@ -125,23 +125,24 @@ function createStudent(t1, t2, t3) {
         
         trs[i].querySelector('td.cell-num').remove();
         trs[i].querySelector('td.cell-text').remove();
-        console.log(trs[i]);
-        console.log(dates);
 
-
-        // var grades = trs[i].innerText.match(/\d/g);
-        // if (grades) {
-        //     grades = grades.map(Number);
-        //     subject.grades = grades;
-        //     var sumOfGrades = 0;
-        //     grades.forEach(element => {
-        //         sumOfGrades += element;
-        //     });
-        //     subject.averageGrade = sumOfGrades / grades.length;
-        // }
-
-        
-
+        var tds = trs[i].querySelectorAll('td');
+        var grades = [];
+        var sumOfGrades = 0;
+        var countOfGrades = 0;
+        for(var j = 0; j < tds.length; j++) {
+            
+            var gradesForDay = tds[j].innerText.match(/\d/g);
+            if (gradesForDay) {
+                gradesForDay.forEach(element => {
+                    sumOfGrades += parseInt(element);
+                    countOfGrades++;
+                    grades.push({value: parseInt(element), date: dates[j]});
+                });
+            }
+        }
+        subject.averageGrade = countOfGrades?sumOfGrades / countOfGrades:0;
+        subject.grades = grades;
         student.subjects.push(subject);
     }
     students.push(student);

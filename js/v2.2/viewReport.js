@@ -25,7 +25,9 @@ function viewReport() {
             td.innerText = subject.title;
             subjectRow.appendChild(td);
             td = document.createElement('td');
-            td.innerText = subject.grades.join(' ');
+            if (subject.grades) subject.grades.forEach(grade => {
+                td.innerText += grade.value + ' ';
+            });
             subjectRow.appendChild(td);
             td = document.createElement('td');
             td.innerText = subject.averageGrade.toPrecision(3);
