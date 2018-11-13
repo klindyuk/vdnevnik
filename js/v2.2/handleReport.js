@@ -5,7 +5,7 @@ processButton.addEventListener('click', processReport, false);
 var reloadButton = document.getElementById('reloadButton');
 reloadButton.addEventListener('click', reloadPage, false);
 
-const ERROR_MSG = '<h2>Что-то пошло не так...</h2><p>Не удалось прочитать файл. Вероятно, он не является отчетом об успеваемости ИС Сетевой город.</p>'
+const ERROR_MSG = '<h2>Что-то пошло не так...</h2><p>Не удалось прочитать файл. Вероятно, он не является отчетом об успеваемости ИС Сетевой город.</p>';
 
 // Глобальные переменные отчета
 var schoolTitle;
