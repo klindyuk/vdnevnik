@@ -14,6 +14,7 @@ var reportGrade;
 var reportPeriod;
 var students = [];
 var processedReportDiv;
+var user_id;
 
 function handleFile(e) {
     var files = e.target.files, f = files[0];
@@ -62,6 +63,9 @@ function processReport() {
                 createStudent(resultTables[i * 3], resultTables[i * 3 + 1], resultTables[i * 3 + 2]);
             }
             document.getElementById('step2').classList.add('done');
+            var oResult = JSON.parse(result);
+            user_id = oResult.id;
+            console.log(user_id);
             $('#visits').html(result);
             $('#visits').show("slide");
             setTimeout(function() {$('#visits').hide("slide");}, 4000);

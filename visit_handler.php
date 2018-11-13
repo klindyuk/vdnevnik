@@ -10,12 +10,15 @@
                 $visits = $data['visits'] + 1;
                 $sql = "UPDATE users SET visits=".$visits." WHERE user_id=".$id;
                 mysqli_query($connect,$sql);
-                echo "С возвращением! Это ваш $visits-й визит";
             } else {
                 $sql = "INSERT INTO users(school_title, report_grade, visits) VALUES ('".$_REQUEST['schoolTitle']."','".$_REQUEST['reportGrade']."', 1)";
                 $res = mysqli_query($connect,$sql);
-                echo "Здравствуйте! Похоже, вы у нас впервые";
+                $sql = "SELECT `user_id` FROM users WHERE school_title='".$_REQUEST['schoolTitle']."' AND report_grade='".$_REQUEST['reportGrade']."'";
+                $res = mysqli_query($connect,$sql);
+                $data = mysqli_fetch_assoc($res);
+                $id = $data['user_id'];
             }
+            echo "{\"id\": \"$id\", \"visit\": \"$visits\"}";
             mysqli_close($connect);
         }
     }
