@@ -5,7 +5,7 @@ processButton.addEventListener('click', processReport, false);
 var reloadButton = document.getElementById('reloadButton');
 reloadButton.addEventListener('click', reloadPage, false);
 
-const ERROR_MSG = '<h2>Что-то пошло не так...</h2><p>Не удалось прочитать файл. Вероятно, он не является отчетом об успеваемости ИС Сетевой город.</p>'
+const ERROR_MSG = '<h2>Что-то пошло не так...</h2><p>Не удалось прочитать файл. Вероятно, он не является отчетом об успеваемости ИС Сетевой город.</p>';
 
 // Глобальные переменные отчета
 var schoolTitle;
@@ -14,6 +14,7 @@ var reportGrade;
 var reportPeriod;
 var students = [];
 var processedReportDiv;
+var user_id;
 
 function handleFile(e) {
     var files = e.target.files, f = files[0];
@@ -49,21 +50,36 @@ function processReport() {
     reportYear = reportGlobals[0].innerText.split('/')[1];
     reportGrade = reportGlobals[1].innerText;
     reportPeriod = reportGlobals[2].innerText;
-    //console.log(reportYear, reportGrade, reportPeriod);
-    for (var i = 0; i < resultTables.length / 3; i++) {
-        createStudent(resultTables[i * 3], resultTables[i * 3 + 1], resultTables[i * 3 + 2]);
-    }
-    //console.log(students);
-    document.getElementById('step2').classList.add('done');
-    //document.getElementById('printSettings').style.display = 'block';
-    $('#printSettings').show("slide");
-    printButton.disabled = false;
-    viewReport();    
+    // Регистрируем школу и класс на сервере, в случае успеха запускаем обработку
+    $.ajax({
+        url: 'visit_handler.php',
+        data: {
+            action: 'checkin',
+            schoolTitle: schoolTitle,
+            reportGrade: reportGrade
+        },
+        success: function(result) {
+            for (var i = 0; i < resultTables.length / 3; i++) {
+                createStudent(resultTables[i * 3], resultTables[i * 3 + 1], resultTables[i * 3 + 2]);
+            }
+            document.getElementById('step2').classList.add('done');
+            var oResult = JSON.parse(result);
+            user_id = oResult.id;
+            console.log(user_id);
+            $('#visits').html(result);
+            $('#visits').show("slide");
+            setTimeout(function() {$('#visits').hide("slide");}, 4000);
+            $('#printSettings').show("slide");
+            printButton.disabled = false;
+            viewReport();
+        }
+    });
+  
 }
 
 function getMonthNumberByName(name) {
     var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-    return months.indexOf(name) + 1;
+    return months.indexOf(name);
 }
 
 function createStudent(t1, t2, t3) {
@@ -81,7 +97,7 @@ function createStudent(t1, t2, t3) {
     
     for (var i = 1; i < ths.length - 1; i++) {
         var e = {
-            month: ths[i].innerText,
+            month: ths[i].innerText.trim(),
             days: ths[i].getAttribute('colspan')
         }
         daysForMonth.push(e);
@@ -92,7 +108,7 @@ function createStudent(t1, t2, t3) {
         monthNumber = getMonthNumberByName(element.month);
         var currentYear = monthNumber > 8 ? reportYear - 1 : reportYear;
         for (var j = 0; j < element.days; j++) {
-            dates.push(new Date(currentYear, monthNumber - 1, ths[i].innerText));
+            dates.push(new Date(currentYear, monthNumber, ths[i].innerText));
             i++;
         }
     });
@@ -112,18 +128,25 @@ function createStudent(t1, t2, t3) {
         }
         
         trs[i].querySelector('td.cell-num').remove();
-        
-        var grades = trs[i].innerText.match(/\d/g);
-        if (grades) {
-            grades = grades.map(Number);
-            subject.grades = grades;
-            var sumOfGrades = 0;
-            grades.forEach(element => {
-                sumOfGrades += element;
-            });
-            subject.averageGrade = sumOfGrades / grades.length;
-        }
+        trs[i].querySelector('td.cell-text').remove();
 
+        var tds = trs[i].querySelectorAll('td');
+        var grades = [];
+        var sumOfGrades = 0;
+        var countOfGrades = 0;
+        for(var j = 0; j < tds.length; j++) {
+            
+            var gradesForDay = tds[j].innerText.match(/\d/g);
+            if (gradesForDay) {
+                gradesForDay.forEach(element => {
+                    sumOfGrades += parseInt(element);
+                    countOfGrades++;
+                    grades.push({value: parseInt(element), date: dates[j]});
+                });
+            }
+        }
+        subject.averageGrade = countOfGrades?sumOfGrades / countOfGrades:0;
+        subject.grades = grades;
         student.subjects.push(subject);
     }
     students.push(student);
@@ -141,4 +164,8 @@ $('#about').on('click', function() {
 $('#personal').on('click', function() {
     $('#personal-message').dialog();
     return false;
+});
+
+$(document).ready(function() {
+    $('#about').text(PROG_VERSION);
 });

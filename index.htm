@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache">
     <title>ВДневник! Сетевой город с человеческим лицом онлайн</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -20,6 +21,7 @@
            <input type="file" name="xlfile" id="xlf" accept=".xls" dropzone>
            <label for="processButton" id="step2">2. Причесать</label>
            <input type="button" name="processButton" id="processButton" value="Запустите обработку" disabled>
+           <div id="visits"></div>
            <div id="printSettings">
                <h3>Размер текста</h3>
             <label for="h2size">Заголовок 1: </label>   
@@ -39,24 +41,30 @@
            <label for="reloadButton" id="step4">...или начать заново</label>
            <input type="button" name="reloadButton" id="reloadButton" value="Выберите другой отчет" disabled>
            <div class="credits">
-                <a href="#" id="about">Кому сказать спасибо</a>
+                <a href="#" id="about"></a>
                 <a href="#" id="personal">Заявление о конфиденциальности</a>
                <a href="../">Вернуться на сайт</a>
            </div>
         </div>
-        <div id="processedReport"></div>
+        <div id="processedReport">
+            <h2>Уведомление о сборе данных</h2>
+            <p>Уважаемые коллеги! С 12.11.2018 для улучшения сервиса мы собираем данные о его использовании.</p>
+            <p><b>Что собирается: </b>название школы, класс, настройки печати.</p>
+            <p><b>Зачем это нужно: </b>после ближайшего обновления сервис будет запоминать ваши настройки оформления документа и автоматически применять их в следующий раз.<br>Кроме того, вы сможете выбрать, для каких предметов считать средний балл за четверть, а по каким - за полугодие. Ваш выбор также сохранится.</p>
+            <p><b>Персональные данные: </b>они по сети не передаются, вся обработка происходит на вашем компьютере.</p>
+        </div>
     </div>
 
     <div id="about-message" title="О приложении" class="modal">
         <p>Разработчик: Александр Клиндюк.</p>
-        <p>Материально поблагодарить автора можно переведя любую сумму на карту visa 4276 6300 1015 7215. Словесно - написав на <a href="mailto:a.klindyuk@pushkin1936.ru">a.klindyuk@pushkin1936.ru</a></p>
+        <p><a href="mailto:a.klindyuk@pushkin1936.ru">a.klindyuk@pushkin1936.ru</a></p>
     </div>
     <div id="personal-message" title="Конфиденциальность данных" class="modal">
         <p>Персональные данные в безопасности.</p>
         <p>Вся обработка происходит непосредственно в браузере, никакие персональные данные не передаются по сети. В целях сбора статистики и улучшения приложения на сервер могут передаваться название школы и класса.</p>
     </div>
     
-    <script src="js/v2.0/handleReport.js"></script>
-    <script src="js/v2.0/viewReport.js"></script>
+    <script src="js/v2.2/handleReport.js"></script>
+    <script src="js/v2.2/viewReport.js"></script>
 </body>
 </html>
